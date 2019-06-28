@@ -26,7 +26,6 @@ object UserGroupId {
   implicit val userGroupIdMapper = TypeMapper(UserGroupId(_))(_.id)
 }
 
-
 object Id {
   // For ScalaPB, define bi-directional mappings from the wrapper types to the
   // underlying primitives.

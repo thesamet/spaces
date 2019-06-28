@@ -9,8 +9,8 @@ import spaces.auth.User
 import spaces.services._
 
 private class Api(workspaceService: WorkspaceService,
-          idService: IdService,
-          directoryService: DirectoryService) {
+                  idService: IdService,
+                  directoryService: DirectoryService) {
   import org.http4s.dsl.io._
   import JsonProtoUtils._
 
@@ -48,7 +48,8 @@ private class Api(workspaceService: WorkspaceService,
       for {
         req <- req.req.as[DeleteEnvironmentRequest]
         workspace <- workspaceService.getWorkspace(req.workspaceId, user)
-        ws <- Ok(workspaceService.deleteEnvironment(workspace, req.environmentId))
+        ws <- Ok(
+          workspaceService.deleteEnvironment(workspace, req.environmentId))
       } yield ws
 
     case req @ POST -> Root / "linkSourceRepository" as user =>
@@ -93,7 +94,6 @@ private class Api(workspaceService: WorkspaceService,
         wss <- workspaceService.listWorkspaces(user)
         res <- Ok(Json.arr(wss.map(id => Json.fromLong(id.id)): _*))
       } yield res
-
 
     case req @ GET -> Root / "workspaces" / WorkspaceIdVar(workspaceId) as user =>
       for {
@@ -158,13 +158,15 @@ private class Api(workspaceService: WorkspaceService,
       case e => IO.raiseError(e)
     }
 
-  val service: AuthedService[User, IO] = AuthedService[User, IO](requestHandler andThen errorHandler)
+  val service: AuthedService[User, IO] =
+    AuthedService[User, IO](requestHandler andThen errorHandler)
 }
 
 object Api {
-  def buildService(workspaceService: WorkspaceService,
-    idService: IdService,
-    directoryService: DirectoryService): AuthedService[User, IO] = {
+  def buildService(
+      workspaceService: WorkspaceService,
+      idService: IdService,
+      directoryService: DirectoryService): AuthedService[User, IO] = {
     new Api(workspaceService, idService, directoryService).service
   }
 }
