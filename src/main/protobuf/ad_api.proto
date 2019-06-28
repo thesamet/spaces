@@ -6,7 +6,7 @@ package spaces;
 
 import "scalapb/scalapb.proto";
 import "google/protobuf/wrappers.proto";
-import "internal_models.proto";
+
 
 option (scalapb.options) = {
   flat_package: true
@@ -14,5 +14,23 @@ option (scalapb.options) = {
 
 // POST /createClient
 message CreateClientRequest {
-    Client client_request = 2;
+    string client_name = 1;
+    string client_agency = 2;
 }
+
+//CreateClientResponse
+//CreateBusinessRequest
+//CreateBusinessResponse
+//CreateCampaignRequest
+//CreateCampaignResponse
+//CreateCampaignWindowRequest
+//CreateCampaignWindowResponse
+
+//GetClientRequest
+//GetClientResponse
+//GetBusinessRequest
+//GetBusinessResponse
+//GetCampaignRequest
+//GetCampaignResponse
+//GetCampaignWindowRequest
+//GetCampaignWindowResponse

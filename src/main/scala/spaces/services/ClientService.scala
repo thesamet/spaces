@@ -12,15 +12,16 @@ import cats.implicits._
 
 
 trait ClientService {
-  def createNewClient(client: Client) : IO[String] = IO { "this should never be called" }
+  def createNewClient(clientName: String, clientAgency: String) : IO[String] = IO { "this should never be called" }
 }
 
 class ClientServiceImpl() extends ClientService {
 
-  override def createNewClient(client: Client): IO[String] = {
+  override def createNewClient(clientName: String, clientAgency: String): IO[String] = {
     val randomClientId = UUID.randomUUID().toString
-    val newClient = Client(randomClientId, "pizzahut", "marchex", Seq.empty, Seq.empty, Seq.empty)
+    val newClient = Client(randomClientId, clientName, clientAgency, Seq.empty, Seq.empty, Seq.empty)
     //store this newClient in DynamoDB
-    IO{ newClient.toProtoString }
+    println(newClient)
+    IO{ newClient.id }
   }
 }

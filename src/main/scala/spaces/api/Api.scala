@@ -34,8 +34,9 @@ private class Api(workspaceService: WorkspaceService,
       for {
         req <- req.req
             .as[CreateClientRequest]
-            .ensure(new InvalidRequest("Missing fields"))(_.clientRequest.nonEmpty)
-        resp <- Ok(clientService.createNewClient(req.getClientRequest))
+            //.ensure(new InvalidRequest("Missing fields"))(_.clientAgency.nonEmpty)
+            //.ensure(new InvalidRequest("Missing fields"))(_.clientName.nonEmpty)
+        resp <- Ok(clientService.createNewClient(req.clientName, req.clientAgency))
       } yield resp
 
     case req @ POST -> Root / "deleteWorkspace" as user =>
