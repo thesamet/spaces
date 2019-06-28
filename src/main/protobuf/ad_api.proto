@@ -1,0 +1,115 @@
+/**  Entities that are owned by the directory services */
+
+syntax = "proto3";
+
+package spaces.ad_models;
+
+import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option (scalapb.options) = {
+  flat_package: true
+};
+
+enum RateType {
+    PHONE_CALL = 0;
+    SMS_RATE = 1;
+    URL_CLICK = 2;
+    APP_STORE_CLICK = 3;
+    IMPRESSION = 4;
+}
+
+enum DayOfWeek {
+    MONDAY = 0;
+    TUESDAY = 1;
+    WEDNESDAY = 2;
+    THURSDAY = 3;
+    FRIDAY = 4;
+    SATURDAY = 5;
+    SUNDAY = 6;
+}
+
+enum MatchType{
+    BROAD = 0;
+    NARROW = 1;
+}
+
+enum ButtonType {
+    WEB_LINK = 0;
+    APP_STORE = 1;
+    SMS_BUTTON = 2;
+    CALL = 3;
+}
+
+message Client {
+    string id = 1;
+    string name = 2;
+    string agency = 3;
+    repeated Campaign campaigns = 4;
+    repeated Business businesses = 5;
+    repeated CampaignWindow campaign_windows = 6;
+}
+
+message Business {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phone = 4;
+    double lat = 5;
+    double long = 6;
+    string timezone = 7;
+    repeated string weekly_hours = 8;
+    repeated DynamicActionButton dynamic_action_button = 9;
+}
+
+message Campaign {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    repeated PayoutDetails payout_details = 4;
+    MatchType match_type = 5;
+    repeated string keywords =6;
+    string thumbnail_image = 7;
+    repeated string detail_image = 8;
+    repeated DynamicActionButton dynamic_action_button = 9;
+}
+
+message CampaignWindow {
+    string id = 1;
+    string description = 2;
+    string campaign_id = 3;
+    repeated string business_id = 4;
+    string targetLocation = 5;
+    string total_runtime = 6;
+    repeated string weekly_hours = 7;
+}
+
+
+message WeeklyHours {
+    string hours = 1;
+    DayOfWeek day_of_week = 2;
+    string timezone = 3;
+}
+
+message TotalRuntime {
+    google.protobuf.Timestamp BeginTimeStamp = 1;
+    google.protobuf.Timestamp EndTimeStamp = 2;
+}
+
+message PayoutDetails {
+    double rate_amount = 1;
+    string rate_currency = 2;
+    RateType rate_type = 3;
+}
+
+message DynamicActionButton {
+    ButtonType button_type = 1;
+    string text = 2;
+    string attribution_name = 3;
+    string attribution_image = 4;
+    oneof button_info {
+        string uri = 5;
+        string phone_number = 6;
+    }
+}

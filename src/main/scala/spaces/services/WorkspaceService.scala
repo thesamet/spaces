@@ -6,7 +6,6 @@ import cats.implicits._
 import spaces.api.Timestamps
 import spaces.{Id, UserGroupId}
 import spaces.auth.User
-import spaces.auth.Client
 import spaces.api.protos._
 
 /** Provides the business logic for our service.
