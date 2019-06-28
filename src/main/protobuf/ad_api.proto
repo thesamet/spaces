@@ -10,6 +10,9 @@ import "google/protobuf/timestamp.proto";
 
 option (scalapb.options) = {
   flat_package: true
+  single_file: true
+  preamble: "sealed trait Hours"
+  preamble: "sealed trait TargetLocation"
 };
 
 enum RateType {
@@ -112,4 +115,17 @@ message DynamicActionButton {
         string uri = 5;
         string phone_number = 6;
     }
+}
+
+
+message AllDay {
+    option (scalapb.message).extends = "Hours";
+}
+
+message SpecificHours {
+    option (scalapb.message).extends = "Hours";
+    int32 start_hour  =1;
+    int32 start_minute  =2;
+    int32 end_hour  =3;
+    int32 end_minute  =4;
 }
