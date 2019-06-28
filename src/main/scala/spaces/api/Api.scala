@@ -4,13 +4,15 @@ import cats.effect.IO
 import cats.implicits._
 import io.circe.Json
 import org.http4s.{AuthedRequest, AuthedService, Response}
+import spaces.CreateClientRequest
 import spaces.api.protos._
 import spaces.auth.User
 import spaces.services._
 
 private class Api(workspaceService: WorkspaceService,
                   idService: IdService,
-                  directoryService: DirectoryService) {
+                  directoryService: DirectoryService,
+                  clientService: ClientService) {
   import org.http4s.dsl.io._
   import JsonProtoUtils._
 
@@ -27,6 +29,14 @@ private class Api(workspaceService: WorkspaceService,
                                                    req.groupRefs)
         r <- Ok(workspace)
       } yield r
+
+    case req @ POST -> Root / "createClient" as user =>
+      for {
+        req <- req.req
+            .as[CreateClientRequest]
+            .ensure(new InvalidRequest("Missing fields"))(_.clientRequest.nonEmpty)
+        resp <- Ok(clientService.createNewClient(req.getClientRequest))
+      } yield resp
 
     case req @ POST -> Root / "deleteWorkspace" as user =>
       for {
@@ -166,7 +176,8 @@ object Api {
   def buildService(
       workspaceService: WorkspaceService,
       idService: IdService,
-      directoryService: DirectoryService): AuthedService[User, IO] = {
-    new Api(workspaceService, idService, directoryService).service
+      directoryService: DirectoryService,
+      clientService: ClientService): AuthedService[User, IO] = {
+    new Api(workspaceService, idService, directoryService, clientService).service
   }
 }

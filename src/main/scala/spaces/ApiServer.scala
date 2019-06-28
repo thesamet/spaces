@@ -25,7 +25,8 @@ object ApiServer extends StreamApp[IO] {
     new WorkspaceServiceImpl(repo, StaticInfraService)
     Api.buildService(workspaceService,
                      new IdServiceImpl(xa),
-                     StaticDirectoryService)
+                     StaticDirectoryService,
+                     new ClientServiceImpl())
   }
 
   def makeRealService(xa: Transactor[IO]) = {

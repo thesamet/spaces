@@ -12,8 +12,7 @@ option (scalapb.options) = {
   flat_package: true
 };
 
-// POST /createClientRequest
+// POST /createClient
 message CreateClientRequest {
-    string auth_token = 1;
     Client client_request = 2;
 }
