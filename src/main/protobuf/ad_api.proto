@@ -1,0 +1,19 @@
+/**  Entities that are owned by the directory services */
+
+syntax = "proto3";
+
+package spaces;
+
+import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
+import "internal_models.proto";
+
+option (scalapb.options) = {
+  flat_package: true
+};
+
+// POST /createClientRequest
+message CreateClientRequest {
+    string auth_token = 1;
+    Client client_request = 2;
+}

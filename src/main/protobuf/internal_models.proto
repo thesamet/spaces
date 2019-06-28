@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package spaces.ad_models;
+package spaces;
 
 import "scalapb/scalapb.proto";
 import "google/protobuf/wrappers.proto";
