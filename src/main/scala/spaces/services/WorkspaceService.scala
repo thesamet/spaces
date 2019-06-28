@@ -6,6 +6,7 @@ import cats.implicits._
 import spaces.api.Timestamps
 import spaces.{Id, UserGroupId}
 import spaces.auth.User
+import spaces.auth.Client
 import spaces.api.protos._
 
 /** Provides the business logic for our service.
@@ -58,6 +59,7 @@ trait WorkspaceService {
   def unlinkDatabase(workspace: Workspace,
                      environment: Id[Environment],
                      dbRef: String): IO[Workspace]
+
 }
 
 /** The concrete implementation is written in terms of abstract interfaces of the
@@ -77,7 +79,10 @@ class WorkspaceServiceImpl(repo: WorkspaceRepository,
 
   def listWorkspaces(user: User): IO[Seq[Id[Workspace]]] = {
     repo.all.map(_.collect {
-      case ws if !ws.isDeleted && ws.groupIds.toSet.intersect(user.groupIds.toSet).nonEmpty =>
+      case ws
+          if !ws.isDeleted && ws.groupIds.toSet
+            .intersect(user.groupIds.toSet)
+            .nonEmpty =>
         ws.id
     })
   }
@@ -123,8 +128,9 @@ class WorkspaceServiceImpl(repo: WorkspaceRepository,
       )
     } yield ws
 
-  override def deleteEnvironment(workspace: Workspace,
-                                 environmentId: Id[Environment]): IO[Workspace] =
+  override def deleteEnvironment(
+      workspace: Workspace,
+      environmentId: Id[Environment]): IO[Workspace] =
     if (!workspace.environments.exists(_.id == environmentId))
       IO.raiseError(
         new ObjectNotFound("Environment with given id was not found"))

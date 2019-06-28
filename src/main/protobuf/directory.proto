@@ -5,10 +5,46 @@ syntax = "proto3";
 package spaces.auth;
 
 import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
 
 option (scalapb.options) = {
   flat_package: true
 };
+
+message Client {
+    string id = 1;
+    string name = 2;
+    string agency = 3;
+    repeated string campaigns = 4;
+    repeated string businesses = 5;
+    repeated string campaign_windows = 6;
+    google.protobuf.Int32Value opt = 7;
+
+}
+
+message Business {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phone = 4;
+    double lat = 5;
+    double long = 6;
+    string timezone = 7;
+    repeated string workhours = 8;
+    repeated string dynamic_action_button = 9;
+}
+
+message Campaign {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    repeated string payout_details = 4;
+    string matchtype = 5;
+    repeated string keywords =6;
+    string thumbnail_image = 7;
+    repeated string detail_image = 8;
+    repeated string dynamic_action_button = 9;
+}
 
 message User {
     string user_id = 1 [(scalapb.field).type = "spaces.UserId"];

@@ -9,7 +9,10 @@ import spaces.api.Api
 import spaces.auth.User
 import spaces.services._
 
-case class DatabaseConfig(driver: String, url: String, user: String, password: String)
+case class DatabaseConfig(driver: String,
+                          url: String,
+                          user: String,
+                          password: String)
 
 case class Config(host: String, port: Int, database: DatabaseConfig)
 
@@ -20,10 +23,9 @@ object ApiServer extends StreamApp[IO] {
     val workspaceService = new WorkspaceServiceImpl(repo, StaticInfraService)
 
     new WorkspaceServiceImpl(repo, StaticInfraService)
-    Api.buildService(
-      workspaceService,
-      new IdServiceImpl(xa),
-      StaticDirectoryService)
+    Api.buildService(workspaceService,
+                     new IdServiceImpl(xa),
+                     StaticDirectoryService)
   }
 
   def makeRealService(xa: Transactor[IO]) = {
@@ -38,7 +40,8 @@ object ApiServer extends StreamApp[IO] {
       cfg.password
     )
 
-  def stream(args: List[String], requestShutdown: IO[Unit]): fs2.Stream[IO, StreamApp.ExitCode] = {
+  def stream(args: List[String],
+             requestShutdown: IO[Unit]): fs2.Stream[IO, StreamApp.ExitCode] = {
     import scala.concurrent.ExecutionContext.Implicits.global
 
     val config = pureconfig.loadConfig[Config] match {
@@ -53,4 +56,3 @@ object ApiServer extends StreamApp[IO] {
       .serve
   }
 }
-
