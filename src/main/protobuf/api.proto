@@ -17,6 +17,12 @@ option (scalapb.options) = {
   flat_package: true
 };
 
+// POST /createClient
+message CreateClientRequest {
+  string client_name = 1;
+  string client_agency = 2 ;
+}
+
 // POST /createWorkspace
 message CreateWorkspaceRequest {
   string name = 1;

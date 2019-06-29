@@ -4,7 +4,6 @@ import cats.effect.IO
 import cats.implicits._
 import io.circe.Json
 import org.http4s.{AuthedRequest, AuthedService, Response}
-import spaces.CreateClientRequest
 import spaces.api.protos._
 import spaces.auth.User
 import spaces.services._
@@ -34,9 +33,7 @@ private class Api(workspaceService: WorkspaceService,
       for {
         req <- req.req
             .as[CreateClientRequest]
-            //.ensure(new InvalidRequest("Missing fields"))(_.clientAgency.nonEmpty)
-            //.ensure(new InvalidRequest("Missing fields"))(_.clientName.nonEmpty)
-        resp <- Ok(clientService.createNewClient(req.clientName, req.clientAgency))
+        resp <- Ok(clientService.createNewClient(req))
       } yield resp
 
     case req @ POST -> Root / "deleteWorkspace" as user =>

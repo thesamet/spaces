@@ -9,13 +9,18 @@ import "google/protobuf/wrappers.proto";
 
 
 option (scalapb.options) = {
+  package_name: 'spaces.api.protos'
   flat_package: true
 };
 
 // POST /createClient
-message CreateClientRequest {
-    string client_name = 1;
-    string client_agency = 2;
+//message CreateClientRequest {
+//    string client_name = 1;
+//    string client_agency = 2;
+//}
+
+message CreateClientResponse {
+    string client_uuid = 1;
 }
 
 //CreateClientResponse
