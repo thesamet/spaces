@@ -13,14 +13,14 @@ option (scalapb.options) = {
   flat_package: true
 };
 
-// POST /createClient
-//message CreateClientRequest {
-//    string client_name = 1;
-//    string client_agency = 2;
-//}
+ //POST /createClient
+message CreateClientRequest {
+    string name = 1;
+    string agency = 2;
+}
 
 message CreateClientResponse {
-    string client_uuid = 1;
+    string uuid = 1;
 }
 
 //CreateClientResponse

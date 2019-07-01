@@ -18,10 +18,10 @@ option (scalapb.options) = {
 };
 
 // POST /createClient
-message CreateClientRequest {
-  string client_name = 1;
-  string client_agency = 2 ;
-}
+//message CreateClientRequest {
+//  string client_name = 1;
+//  string client_agency = 2 ;
+//}
 
 // POST /createWorkspace
 message CreateWorkspaceRequest {

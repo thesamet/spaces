@@ -29,12 +29,15 @@ private class Api(workspaceService: WorkspaceService,
         r <- Ok(workspace)
       } yield r
 
-    case req @ POST -> Root / "createClient" as user =>
+    case req @ POST -> Root / "createClient" as user => {
+      println(s"The HTTP request =>  $req")
+      println(s"The HTTP body=>  ${req.req.body}")
       for {
         req <- req.req
-            .as[CreateClientRequest]
+          .as[CreateClientRequest]
         resp <- Ok(clientService.createNewClient(req))
       } yield resp
+    }
 
     case req @ POST -> Root / "deleteWorkspace" as user =>
       for {

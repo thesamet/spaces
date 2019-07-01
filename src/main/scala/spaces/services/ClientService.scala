@@ -19,8 +19,8 @@ class ClientServiceImpl() extends ClientService {
     println(createClientRequest)
     val randomClientId = UUID.randomUUID().toString
     val newClient = Client(randomClientId,
-                           createClientRequest.clientName,
-                           createClientRequest.clientAgency,
+                           createClientRequest.name,
+                           createClientRequest.agency,
                            Seq.empty,
                            Seq.empty,
                            Seq.empty)
