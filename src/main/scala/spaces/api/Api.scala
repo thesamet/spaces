@@ -31,7 +31,7 @@ private class Api(workspaceService: WorkspaceService,
         r <- Ok(workspace)
       } yield r
 
-      //start NEW CODE
+    //start NEW CODE
     case req @ POST -> Root / "createClient" as user => {
       for {
         req <- req.req
@@ -190,6 +190,11 @@ object Api {
       clientService: ClientService,
       businessService: BusinessService,
       campaignService: CampaignService): AuthedService[User, IO] = {
-    new Api(workspaceService, idService, directoryService, clientService, businessService, campaignService).service
+    new Api(workspaceService,
+            idService,
+            directoryService,
+            clientService,
+            businessService,
+            campaignService).service
   }
 }

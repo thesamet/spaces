@@ -9,7 +9,8 @@ import cats.implicits._
 import spaces.Client
 
 trait ClientService {
-  def createNewClient(createClientRequest: CreateClientRequest): IO[CreateClientResponse]
+  def createNewClient(
+      createClientRequest: CreateClientRequest): IO[CreateClientResponse]
 }
 
 class ClientServiceImpl() extends ClientService {
