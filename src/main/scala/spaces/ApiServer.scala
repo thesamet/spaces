@@ -26,7 +26,9 @@ object ApiServer extends StreamApp[IO] {
     Api.buildService(workspaceService,
                      new IdServiceImpl(xa),
                      StaticDirectoryService,
-                     new ClientServiceImpl())
+                     new ClientServiceImpl(),
+      new BusinessServiceImpl(),
+      new CampaignServiceImpl())
   }
 
   def makeRealService(xa: Transactor[IO]) = {

@@ -11,7 +11,9 @@ import spaces.services._
 private class Api(workspaceService: WorkspaceService,
                   idService: IdService,
                   directoryService: DirectoryService,
-                  clientService: ClientService) {
+                  clientService: ClientService,
+                  businessService: BusinessService,
+                  campaignService: CampaignService) {
   import org.http4s.dsl.io._
   import JsonProtoUtils._
 
@@ -29,13 +31,20 @@ private class Api(workspaceService: WorkspaceService,
         r <- Ok(workspace)
       } yield r
 
+      //start NEW CODE
     case req @ POST -> Root / "createClient" as user => {
-      println(s"The HTTP request =>  $req")
-      println(s"The HTTP body=>  ${req.req.body}")
       for {
         req <- req.req
           .as[CreateClientRequest]
         resp <- Ok(clientService.createNewClient(req))
+      } yield resp
+    }
+
+    case req @ POST -> Root / "createBusiness" as user => {
+      for {
+        req <- req.req
+          .as[CreateBusinessRequest]
+        resp <- Ok(businessService.createNewBusiness(req))
       } yield resp
     }
 
@@ -178,7 +187,9 @@ object Api {
       workspaceService: WorkspaceService,
       idService: IdService,
       directoryService: DirectoryService,
-      clientService: ClientService): AuthedService[User, IO] = {
-    new Api(workspaceService, idService, directoryService, clientService).service
+      clientService: ClientService,
+      businessService: BusinessService,
+      campaignService: CampaignService): AuthedService[User, IO] = {
+    new Api(workspaceService, idService, directoryService, clientService, businessService, campaignService).service
   }
 }

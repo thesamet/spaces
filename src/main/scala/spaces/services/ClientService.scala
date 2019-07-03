@@ -9,13 +9,13 @@ import cats.implicits._
 import spaces.Client
 
 trait ClientService {
-  def createNewClient(createClientRequest: CreateClientRequest): IO[String]
+  def createNewClient(createClientRequest: CreateClientRequest): IO[CreateClientResponse]
 }
 
 class ClientServiceImpl() extends ClientService {
 
   override def createNewClient(
-      createClientRequest: CreateClientRequest): IO[String] = {
+      createClientRequest: CreateClientRequest): IO[CreateClientResponse] = {
     println(createClientRequest)
     val randomClientId = UUID.randomUUID().toString
     val newClient = Client(randomClientId,
@@ -26,6 +26,6 @@ class ClientServiceImpl() extends ClientService {
                            Seq.empty)
     //store this newClient in DynamoDB
     println(newClient)
-    IO { newClient.id }
+    IO { CreateClientResponse(newClient.id) }
   }
 }
