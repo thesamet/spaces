@@ -65,6 +65,65 @@ message CreateCampaignWindowRequest {
     repeated google.protobuf.StringValue target_location = 7;
 }
 
+message CreateCampaignWindowResponse {
+    string uuid = 1;
+}
+
+message GetClientRequest {
+    string id = 1;
+}
+
+message GetClientResponse {
+    string name = 1;
+    string agency = 2;
+    repeated string campaign_ids = 4;
+    repeated string business_ids = 5;
+    repeated string campaign_window_ids = 6;
+}
+
+message GetBusinessRequest {
+    string id = 1;
+}
+
+message GetBusinessResponse {
+    string name = 1;
+    google.protobuf.StringValue address = 2;
+    google.protobuf.StringValue phone_number = 3;
+    double lat = 4;
+    double long = 5;
+    string timezone = 6;
+    repeated string weekly_hours = 8;
+    repeated string dynamic_action_button = 9;
+}
+
+message GetCampaignRequest {
+    string id = 1;
+}
+
+message GetCampaignResponse {
+    string title = 1;
+    string description = 2;
+    repeated string payout_details = 3;
+    string match_type = 4;
+    repeated string keywords = 5;
+    string thumbnail_image = 6;
+    repeated string detail_images = 7;
+    repeated string dynamic_action_button = 8;
+}
+
+message GetCampaignWindowRequest {
+    string id = 1;
+}
+
+message GetCampaignWindowResponse {
+    string campaign_id = 1;
+    string description = 2;
+    repeated string business_ids = 3;
+    string total_runtime = 4;
+    repeated string weekly_hours = 5;
+    string target_location = 6;
+}
+
 //CreateClientResponse
 //CreateBusinessRequest
 //CreateBusinessResponse
