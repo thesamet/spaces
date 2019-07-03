@@ -23,6 +23,48 @@ message CreateClientResponse {
     string uuid = 1;
 }
 
+message CreateBusinessRequest {
+    string client_id = 1;
+    string name = 2;
+    double lat = 3;
+    double long = 4;
+    string timezone = 5;
+    repeated string weekly_hours = 6;
+    repeated string dynamic_action_button = 7;
+    google.protobuf.StringValue address = 8;
+    google.protobuf.StringValue phone_number = 9;
+}
+
+message CreateBusinessResponse {
+    string uuid = 1;
+}
+
+message CreateCampaignRequest {
+    string client_id = 1;
+    string title = 2;
+    string description = 3;
+    repeated string keywords = 4;
+    repeated string dynamic_action_button = 5;
+    google.protobuf.StringValue thumbnail_image = 6;
+    google.protobuf.StringValue detail_image = 7;
+    google.protobuf.StringValue match_type = 8;
+    repeated google.protobuf.StringValue payout_details = 9;
+}
+
+message CreateCampaignResponse {
+    string uuid = 1;
+}
+
+message CreateCampaignWindowRequest {
+    string campaign_id = 1;
+    string description = 2;
+    string begin_runtime = 3;
+    string end_runtime = 4;
+    repeated string business_ids = 5;
+    repeated string weekly_hours = 6;
+    repeated google.protobuf.StringValue target_location = 7;
+}
+
 //CreateClientResponse
 //CreateBusinessRequest
 //CreateBusinessResponse
