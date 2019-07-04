@@ -48,6 +48,23 @@ private class Api(workspaceService: WorkspaceService,
       } yield resp
     }
 
+    case req @ POST -> Root / "createCampaign" as user => {
+      for {
+        req <- req.req
+          .as[CreateCampaignRequest]
+        resp <- Ok(campaignService.createNewCampaign(req))
+      } yield resp
+    }
+
+    case req @ POST -> Root / "createCampaignWindow" as user => {
+      for {
+        req <- req.req
+          .as[CreateCampaignWindowRequest]
+        resp <- Ok(campaignService.createNewCampaignWindow(req))
+      } yield resp
+    }
+
+
     case req @ POST -> Root / "deleteWorkspace" as user =>
       for {
         req <- req.req.as[DeleteWorkspaceRequest]
