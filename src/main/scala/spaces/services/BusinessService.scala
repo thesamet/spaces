@@ -28,7 +28,8 @@ class BusinessServiceImpl extends BusinessService {
       dynamicActionButton = Seq.empty
     )
     val clientId = createBusinessRequest.clientId
+    println(newBusiness)
     //Store new Business in DDB and associate the client with the passed on client ID
-    IO(CreateBusinessResponse(newBusiness.id))
+    IO.pure(CreateBusinessResponse(newBusiness.id))
   }
 }

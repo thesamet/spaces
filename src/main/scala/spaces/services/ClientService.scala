@@ -27,6 +27,6 @@ class ClientServiceImpl() extends ClientService {
                            Seq.empty)
     //store this newClient in DynamoDB
     println(newClient)
-    IO { CreateClientResponse(newClient.id) }
+    IO.pure( CreateClientResponse(newClient.id) )
   }
 }
