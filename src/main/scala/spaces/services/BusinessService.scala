@@ -4,9 +4,11 @@ import java.util.UUID
 
 import cats.effect.IO
 import spaces.Business
-import spaces.api.protos.{CreateBusinessRequest, CreateBusinessResponse}
+import spaces.api.protos.{CreateBusinessRequest, CreateBusinessResponse, GetBusinessRequest, GetBusinessResponse}
 
 trait BusinessService {
+  def getBusiness(req: GetBusinessRequest) : IO[GetBusinessResponse]
+
   def createNewBusiness(
       createBusinessRequest: CreateBusinessRequest): IO[CreateBusinessResponse]
 }
@@ -32,4 +34,7 @@ class BusinessServiceImpl extends BusinessService {
     //Store new Business in DDB and associate the client with the passed on client ID
     IO.pure(CreateBusinessResponse(newBusiness.id))
   }
+
+  //get Business from DDB or raise error if not found
+  override def getBusiness(req: GetBusinessRequest): IO[GetBusinessResponse] = ???
 }

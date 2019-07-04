@@ -4,9 +4,13 @@ import java.util.UUID
 
 import cats.effect.IO
 import spaces.{Campaign, CampaignWindow}
-import spaces.api.protos.{CreateCampaignRequest, CreateCampaignResponse, CreateCampaignWindowRequest, CreateCampaignWindowResponse}
+import spaces.api.protos.{CreateCampaignRequest, CreateCampaignResponse, CreateCampaignWindowRequest, CreateCampaignWindowResponse, GetCampaignRequest, GetCampaignResponse, GetCampaignWindowRequest, GetCampaignWindowResponse}
 
 trait CampaignService {
+  def getCampaignWindow(req: GetCampaignWindowRequest) : IO[GetCampaignWindowResponse]
+
+  def getCampaign(req: GetCampaignRequest) : IO[GetCampaignResponse]
+
   def createNewCampaign(
       createCampaignRequest: CreateCampaignRequest): IO[CreateCampaignResponse]
 
@@ -45,6 +49,13 @@ class CampaignServiceImpl extends CampaignService {
     )
     val campaignId = createCampaignWindowRequest.campaignId
     //associate this window with specific campaign in the DDB, also with Business(es)
+    println(newCampaignWindow)
     IO.pure(CreateCampaignWindowResponse(newCampaignWindow.id))
   }
+
+  //get Campaign from DDB or raise error
+  override def getCampaign(req: GetCampaignRequest): IO[GetCampaignResponse] = ???
+
+  //get Campaign Window from DDB or raise error
+  override def getCampaignWindow(req: GetCampaignWindowRequest): IO[GetCampaignWindowResponse] = ???
 }

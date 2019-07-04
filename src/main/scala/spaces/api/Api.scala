@@ -64,6 +64,38 @@ private class Api(workspaceService: WorkspaceService,
       } yield resp
     }
 
+    case req @ POST -> Root / "getClient" as user => {
+      for {
+        req <- req.req
+          .as[GetClientRequest]
+        resp <- Ok(clientService.getClient(req))
+      } yield resp
+    }
+
+    case req @ POST -> Root / "getBusiness" as user => {
+      for {
+        req <- req.req
+          .as[GetBusinessRequest]
+        resp <- Ok(businessService.getBusiness(req))
+      } yield resp
+    }
+
+    case req @ POST -> Root / "getCampaign" as user => {
+      for {
+        req <- req.req
+          .as[GetCampaignRequest]
+        resp <- Ok(campaignService.getCampaign(req))
+      } yield resp
+    }
+
+    case req @ POST -> Root / "getCampaignWindow" as user => {
+      for {
+        req <- req.req
+          .as[GetCampaignWindowRequest]
+        resp <- Ok(campaignService.getCampaignWindow(req))
+      } yield resp
+    }
+
 
     case req @ POST -> Root / "deleteWorkspace" as user =>
       for {

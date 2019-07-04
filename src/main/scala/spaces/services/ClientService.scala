@@ -9,6 +9,8 @@ import cats.implicits._
 import spaces.Client
 
 trait ClientService {
+  def getClient(req: GetClientRequest) : IO[GetClientResponse]
+
   def createNewClient(
       createClientRequest: CreateClientRequest): IO[CreateClientResponse]
 }
@@ -29,4 +31,7 @@ class ClientServiceImpl() extends ClientService {
     println(newClient)
     IO.pure( CreateClientResponse(newClient.id) )
   }
+
+  //retrieve client data from DB. Raise an IO error if not found
+  override def getClient(req: GetClientRequest): IO[GetClientResponse] = ???
 }
